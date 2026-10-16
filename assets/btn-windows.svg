@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="64" viewBox="0 0 300 64" role="img" aria-label="Télécharger pour Windows">
+  <title>Télécharger pour Windows</title>
+  <rect width="300" height="64" rx="16" fill="#ff7a59"/>
+  <g transform="translate(20 20)" fill="#fff"><path transform="scale(1)" d="M0 0h11.4v11.4H0zM12.6 0H24v11.4H12.6zM0 12.6h11.4V24H0zM12.6 12.6H24V24H12.6z"/></g>
+  <g fill="#fff" font-family="Nunito, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="58" y="30" font-size="17" font-weight="800">Télécharger pour Windows</text>
+    <text x="58" y="49" font-size="12.5" font-weight="600" fill-opacity=".9">Windows 10 et 11</text>
+  </g>
+</svg>

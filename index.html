@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lou — arrêter de se ronger les ongles</title>
+<meta name="description" content="Lou, ta mascotte bienveillante pour arrêter de te ronger les ongles. Gratuite, 100 % sur ton ordinateur.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="alternate" hreflang="fr" href="https://getlou.app/?lang=fr">
+<link rel="alternate" hreflang="en" href="https://getlou.app/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://getlou.app/">
+<script>
+  // Language: ?lang=fr|en, else the visitor's choice, else the browser's first language (fr → French, otherwise English)
+  (function () {
+    var q = /[?&]lang=(fr|en)(&|$)/.exec(location.search);
+    var saved = null;
+    try { saved = localStorage.getItem('lou-lang'); } catch (_) {}
+    var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    var lang = q ? q[1] : (saved === 'fr' || saved === 'en') ? saved : (/^fr/i.test(first) ? 'fr' : 'en');
+    document.documentElement.lang = lang;
+    if (lang === 'en') document.documentElement.classList.add('en');
+  })();
+</script>
+<style>
+  @font-face { font-family: Nunito; src: url(assets/Nunito.ttf) format("truetype"); font-weight: 200 1000; font-display: swap; }
+  :root { --coral:#ff7a59; --coral-dark:#e85f3e; --coral-soft:#ffe4da; --cream:#fff8f1; --ink:#3b2a22; --line:#f0e2d8; --muted:#6e584c; --paper:#fff; --sage:#6fbf9b; --sage-soft:#dff3e9; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Nunito, -apple-system, system-ui, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.55; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { text-align: center; }
+  header img { width: 150px; height: 150px; }
+  h1 { font-size: 2.4rem; margin: 4px 0 0; font-weight: 900; }
+  .tag { font-size: 1.15rem; color: var(--muted); margin: 4px 0 0; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 26px; margin-top: 28px; box-shadow: 0 6px 24px rgba(59,42,34,.06); }
+  h2 { margin: 0 0 6px; font-size: 1.35rem; font-weight: 800; }
+  .sub { margin: 0 0 18px; color: var(--muted); }
+  .badge { display:inline-block; font-size:.78rem; font-weight:800; background: var(--sage-soft); color:#2f7a57; border-radius:99px; padding:2px 10px; vertical-align: middle; margin-left: 6px; }
+  .cmd { display:flex; gap:10px; align-items:stretch; }
+  code.line { flex:1; display:block; background:#2b1f19; color:#ffe9dd; border-radius:12px; padding:14px 16px; font: 14px/1.4 ui-monospace, Menlo, monospace; white-space:pre-wrap; word-break:break-all; user-select:all; }
+  button.copy { border:0; border-radius:12px; background: var(--coral); color:#fff; font: 800 1rem Nunito, sans-serif; padding: 0 22px; cursor:pointer; min-width: 120px; }
+  button.copy:hover { background: var(--coral-dark); }
+  button.copy.ok { background: var(--sage); }
+  ol.steps { margin: 18px 0 0; padding: 0; list-style: none; counter-reset: s; }
+  ol.steps li { counter-increment: s; position: relative; padding: 6px 0 6px 44px; }
+  ol.steps li::before { content: counter(s); position:absolute; left:0; top:4px; width:30px; height:30px; border-radius:50%; background: var(--coral-soft); color: var(--coral-dark); font-weight:900; display:grid; place-items:center; }
+  kbd { font: 700 .9em Nunito, sans-serif; background: var(--cream); border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding: 0 6px; }
+  .note { font-size:.92rem; color: var(--muted); margin: 14px 0 0; }
+  .dl { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  a.btn { display:block; text-align:center; text-decoration:none; color: var(--ink); background: var(--cream); border:1px solid var(--line); border-radius:14px; padding: 14px; font-weight: 800; }
+  a.btn small { display:block; font-weight:600; color: var(--muted); }
+  a.btn:hover { border-color: var(--coral); }
+  a.btn.mine { border: 2px solid var(--coral); background: var(--coral-soft); }
+  details { margin-top: 16px; }
+  summary { cursor:pointer; font-weight: 800; }
+  details ol { padding-left: 22px; }
+  .get-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+  .get-item { display:flex; flex-direction:column; gap:8px; text-align:center; }
+  a.get-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; text-decoration:none; color:#fff; background: var(--coral); border:1px solid var(--coral); border-radius:18px; padding: 18px 12px 16px; box-shadow: 0 6px 18px rgba(232,95,62,.25); }
+  a.get-btn:hover { background: var(--coral-dark); border-color: var(--coral-dark); }
+  a.get-btn img { width:30px; height:30px; margin-bottom:2px; }
+  a.get-btn .pre { font-weight:700; font-size:.9rem; opacity:.92; margin-bottom:-6px; }
+  a.get-btn b { font-size:1.35rem; font-weight:900; line-height:1.25; }
+  a.get-btn small { font-weight:600; font-size:.85rem; opacity:.92; }
+  .get.known .get-item:not(.mine) a.get-btn { background: var(--paper); color: var(--ink); border-color: var(--line); box-shadow:none; }
+  .get.known .get-item:not(.mine) a.get-btn:hover { border-color: var(--coral); }
+  .get.known .get-item:not(.mine) a.get-btn img { filter: brightness(0); opacity:.75; }
+  a.get-more { font-size:.88rem; font-weight:700; color: var(--coral-dark); }
+  .dl.one { grid-template-columns: 1fr; }
+  .privacy { text-align:center; color: var(--muted); font-size: .95rem; margin-top: 30px; }
+  .privacy a, .card a { color: var(--coral-dark); }
+  footer { text-align:center; margin-top: 22px; }
+  .promo { margin: 26px auto 0; max-width: 340px; }
+  .promo video { display:block; width:100%; height:auto; aspect-ratio: 9 / 16; border-radius: 20px; border: 1px solid var(--line); background: var(--paper); box-shadow: 0 6px 24px rgba(59,42,34,.10); }
+  html.en .fr, html:not(.en) .en { display: none !important; }
+  nav.lang { display:flex; justify-content:flex-end; gap:6px; }
+  nav.lang button { border:1px solid var(--line); background: var(--paper); color: var(--muted); font: 800 .85rem Nunito, sans-serif; padding: 6px 14px; border-radius: 99px; cursor:pointer; }
+  nav.lang button:hover { border-color: var(--coral); }
+  nav.lang button[aria-pressed="true"] { background: var(--coral-soft); border-color: var(--coral); color: var(--coral-dark); }
+  nav.lang button:focus-visible, a:focus-visible, button.copy:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+  @media (max-width: 560px) { .cmd { flex-direction: column; } button.copy { padding: 12px; } .dl, .get-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <nav class="lang" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" lang="fr">Français</button>
+    <button type="button" data-lang="en" lang="en">English</button>
+  </nav>
+  <header>
+    <img src="assets/lou.png" alt="Lou la loutre qui fait coucou" data-en-alt="Lou the otter waving hello">
+    <h1>Lou</h1>
+    <p class="tag"><span class="fr">Ta mascotte bienveillante pour arrêter de te ronger les ongles.<br>Gratuite, 100 % sur ton ordinateur.</span><span class="en">Your gentle companion to help you stop biting your nails.<br>Free, and it runs entirely on your computer.</span></p>
+  </header>
+
+  <section class="promo" aria-label="Vidéo de présentation de Lou" data-en-aria-label="Lou's introduction video">
+    <video id="promo" src="assets/lou-presentation.mp4" poster="assets/lou-presentation-poster.jpg" data-fr-src="assets/lou-presentation.mp4" data-fr-poster="assets/lou-presentation-poster.jpg" data-en-src="assets/lou-presentation-en.mp4" data-en-poster="assets/lou-presentation-en-poster.jpg" controls playsinline preload="metadata" width="720" height="1280"><span class="fr">Ton navigateur ne lit pas la vidéo. <a href="assets/lou-presentation.mp4">Télécharger la vidéo de présentation</a>.</span><span class="en">Your browser can't play this video. <a href="assets/lou-presentation-en.mp4">Download the introduction video</a>.</span></video>
+    <script>
+      // English visitors get the English video (set before the browser starts loading the French one)
+      (function () {
+        if (document.documentElement.lang !== 'en') return;
+        var v = document.getElementById('promo');
+        v.poster = v.dataset.enPoster; v.src = v.dataset.enSrc;
+      })();
+    </script>
+  </section>
+
+  <section class="get" id="get" aria-label="Télécharger Lou" data-en-aria-label="Download Lou">
+    <div class="get-grid">
+      <div class="get-item" data-os="mac">
+        <a class="get-btn" id="get-mac" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-mac-apple-silicon.dmg"><img src="assets/os-mac.svg" alt=""><span class="fr"><span class="pre">Télécharger pour</span></span><span class="en"><span class="pre">Download for</span></span><b>Mac</b><small id="get-mac-sub"><span class="fr">puce Apple (M1, M2, M3, M4…)</span><span class="en">Apple chip (M1, M2, M3, M4…)</span></small></a>
+        <a class="get-more" href="#install"><span class="fr">Mac Intel, installation sans alerte</span><span class="en">Intel Mac, or install without the warning</span></a>
+      </div>
+      <div class="get-item" data-os="win">
+        <a class="get-btn" id="get-win" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-windows-setup.exe"><img src="assets/os-windows.svg" alt=""><span class="fr"><span class="pre">Télécharger pour</span></span><span class="en"><span class="pre">Download for</span></span><b>Windows</b><span class="fr"><small>Windows 10 et 11</small></span><span class="en"><small>Windows 10 and 11</small></span></a>
+        <a class="get-more" href="#windows"><span class="fr">Comment l'installer</a></span><span class="en">How to install it</a></span>
+      </div>
+      <div class="get-item" data-os="linux">
+        <a class="get-btn" id="get-linux" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-linux.AppImage"><img src="assets/os-linux.svg" alt=""><span class="fr"><span class="pre">Télécharger pour</span></span><span class="en"><span class="pre">Download for</span></span><b>Linux</b><span class="fr"><small>AppImage, toutes distributions</small></span><span class="en"><small>AppImage, all distributions</small></span></a>
+        <a class="get-more" href="#linux"><span class="fr">Paquet .deb, installation</span><span class="en">.deb package and install steps</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="sections">
+  <section class="card" id="install" data-os="mac">
+    <h2><span class="fr">Installer Lou sur Mac <span class="badge">recommandé · 30 secondes</span></span><span class="en">Install Lou on your Mac <span class="badge">recommended · 30 seconds</span></span></h2>
+    <p class="sub"><span class="fr">Une ligne à coller dans le Terminal. Lou s'installe toute seule et s'ouvre automatiquement.</span><span class="en">Paste one line into Terminal. Lou installs and opens by herself.</span></p>
+    <div class="cmd">
+      <code class="line" id="cmd">curl -fsSL https://getlou.app/install.sh | bash</code>
+      <button class="copy" id="copy" type="button"><span class="fr">Copier</span><span class="en">Copy</span></button>
+    </div>
+    <ol class="steps">
+      <li><span class="fr">Clique sur <b>Copier</b>.</span><span class="en">Click <b>Copy</b>.</span></li>
+      <li><span class="fr">Appuie sur <kbd>⌘</kbd> + <kbd>Espace</kbd>, tape <b>Terminal</b>, puis <kbd>Entrée</kbd>.</span><span class="en">Press <kbd>⌘</kbd> + <kbd>Space</kbd>, type <b>Terminal</b>, then press <kbd>Return</kbd>.</span></li>
+      <li><span class="fr">Colle avec <kbd>⌘</kbd> + <kbd>V</kbd>, puis appuie sur <kbd>Entrée</kbd>. C'est tout : la petite loutre apparaît dans la barre des menus.</span><span class="en">Paste with <kbd>⌘</kbd> + <kbd>V</kbd>, then press <kbd>Return</kbd>. That's it: the little otter shows up in the menu bar.</span></li>
+    </ol>
+    <p class="note"><span class="fr">La commande choisit la bonne version pour ton Mac (puce Apple ou Intel), vérifie que le fichier téléchargé est intact, puis installe Lou dans Applications. Tu peux <a href="install.sh">lire le script</a> avant de le lancer. Ensuite, les mises à jour se font depuis Lou en un clic.</span><span class="en">The command picks the right version for your Mac (Apple chip or Intel), checks that the download is intact, then installs Lou in Applications. You can <a href="install.sh">read the script</a> before you run it. After that, Lou updates in one click, right from the app.</span></p>
+  </section>
+
+  <section class="card" id="download" data-os="mac">
+    <h2><span class="fr">Ou télécharger l'app pour Mac</span><span class="en">Or download the app for Mac</span></h2>
+    <p class="sub"><span class="fr">Classique : ouvre le fichier, glisse Lou dans Applications. macOS affichera une alerte au premier lancement (voir plus bas).</span><span class="en">The classic way: open the file and drag Lou into Applications. macOS will show a warning the first time you open her (see below).</span></p>
+    <div class="dl">
+      <a class="btn" id="dl-arm" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-mac-apple-silicon.dmg"><span class="fr">Mac avec puce Apple<small>M1, M2, M3, M4…</small></span><span class="en">Mac with Apple chip<small>M1, M2, M3, M4…</small></span></a>
+      <a class="btn" id="dl-intel" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-mac-intel.dmg"><span class="fr">Mac avec processeur Intel<small>Mac avant 2021</small></span><span class="en">Mac with Intel processor<small>Macs made before 2021</small></span></a>
+    </div>
+    <p class="note"><span class="fr">Quel Mac as-tu ? Menu  → <b>À propos de ce Mac</b> → ligne « Puce » ou « Processeur ».</span><span class="en">Not sure which Mac you have? Apple menu  → <b>About This Mac</b> → the "Chip" or "Processor" line.</span></p>
+    <details>
+      <summary><span class="fr">macOS dit que Lou ne peut pas être ouverte ?</span><span class="en">macOS says Lou can't be opened?</span></summary>
+      <p><span class="fr">A faire une seule fois :</span><span class="en">You only need to do this once:</span></p>
+      <ol>
+        <li><span class="fr">Dans l'alerte, clique <b>Terminé</b> ou <b>Annuler</b> (surtout pas « Placer dans la corbeille »).</span><span class="en">In the warning, click <b>Done</b> or <b>Cancel</b> (not "Move to Trash").</span></li>
+        <li><span class="fr">Ouvre <b>Réglages Système → Confidentialité et sécurité</b>.</span><span class="en">Open <b>System Settings → Privacy &amp; Security</b>.</span></li>
+        <li><span class="fr">Descends jusqu'à « Lou a été bloquée » et clique <b>Ouvrir quand même</b>, puis confirme avec ton mot de passe.</span><span class="en">Scroll down to the message saying Lou was blocked, click <b>Open Anyway</b>, then confirm with your password.</span></li>
+      </ol>
+      <p><span class="fr">Plus simple : utilise la ligne de commande ci-dessus, elle évite complètement cette alerte.</span><span class="en">Easier option: use the command above, and you won't see this warning at all.</span></p>
+    </details>
+  </section>
+
+  <section class="card" id="windows" data-os="win">
+    <h2><span class="fr">Installer Lou sur Windows</span><span class="en">Install Lou on Windows</span></h2>
+    <p class="sub"><span class="fr">Windows 10 et 11. Lou s'installe pour ta session, sans droits administrateur, et s'ouvre toute seule.</span><span class="en">Windows 10 and 11. Lou installs just for you, without admin rights, and opens by herself.</span></p>
+    <div class="dl one">
+      <a class="btn" id="dl-win" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-windows-setup.exe"><span class="fr">Télécharger Lou pour Windows<small>Lou-windows-setup.exe</small></span><span class="en">Download Lou for Windows<small>Lou-windows-setup.exe</small></span></a>
+    </div>
+    <ol class="steps">
+      <li><span class="fr">Ouvre le fichier téléchargé.</span><span class="en">Open the downloaded file.</span></li>
+      <li><span class="fr">Si Windows affiche « Windows a protégé votre ordinateur », clique <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. Lou est gratuite et n'est pas signée par un éditeur payant.</span><span class="en">If Windows says "Windows protected your PC", click <b>More info</b>, then <b>Run anyway</b>. Lou is free and isn't signed with a paid publisher certificate.</span></li>
+      <li><span class="fr">C'est tout : la petite loutre apparaît en bas à droite, près de l'horloge (clique sur <b>^</b> si tu ne la vois pas).</span><span class="en">That's it: the little otter shows up at the bottom right, near the clock (click <b>^</b> if you can't see her).</span></li>
+    </ol>
+    <p class="note"><span class="fr">Si Lou ne voit pas la caméra : <b>Paramètres → Confidentialité et sécurité → Caméra</b>, active « Autoriser les applications de bureau à accéder à votre caméra ». Ensuite, les mises à jour se font depuis Lou en un clic.</span><span class="en">If Lou can't see your camera: open <b>Settings → Privacy &amp; security → Camera</b> and turn on "Let desktop apps access your camera". After that, Lou updates in one click, right from the app.</span></p>
+  </section>
+
+  <section class="card" id="linux" data-os="linux">
+    <h2><span class="fr">Installer Lou sur Linux</span><span class="en">Install Lou on Linux</span></h2>
+    <p class="sub"><span class="fr">Ubuntu, Debian, Fedora, Mint… Deux formats au choix.</span><span class="en">Ubuntu, Debian, Fedora, Mint… Two formats to choose from.</span></p>
+    <div class="dl">
+      <a class="btn" id="dl-appimage" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-linux.AppImage"><span class="fr">AppImage<small>toutes distributions · se met à jour</small></span><span class="en">AppImage<small>all distributions · updates itself</small></span></a>
+      <a class="btn" id="dl-deb" href="https://github.com/DjimmyL/lou-releases/releases/latest/download/Lou-linux.deb"><span class="fr">Paquet .deb<small>Debian, Ubuntu, Mint</small></span><span class="en">.deb package<small>Debian, Ubuntu, Mint</small></span></a>
+    </div>
+    <details>
+      <summary><span class="fr">Comment l'installer ?</span><span class="en">How do I install it?</span></summary>
+      <ol>
+        <li><span class="fr"><b>AppImage</b> : clic droit sur le fichier → Propriétés → « Autoriser l'exécution », puis ouvre-le. Dans un terminal : <code>chmod +x Lou-linux.AppImage &amp;&amp; ./Lou-linux.AppImage</code>. Si elle refuse de démarrer : <code>sudo apt install fuse3</code>, ou prends le .deb.</span><span class="en"><b>AppImage</b>: right-click the file → Properties → "Allow executing file as program", then open it. In a terminal: <code>chmod +x Lou-linux.AppImage &amp;&amp; ./Lou-linux.AppImage</code>. If it won't start: <code>sudo apt install fuse3</code>, or use the .deb.</span></li>
+        <li><span class="fr"><b>.deb</b> : <code>sudo apt install ./Lou-linux.deb</code>, puis lance Lou depuis tes applications.</span><span class="en"><b>.deb</b>: <code>sudo apt install ./Lou-linux.deb</code>, then open Lou from your applications.</span></li>
+      </ol>
+      <p><span class="fr">Lou vit dans la zone des icônes de ton bureau. Sur GNOME, si tu ne vois pas son icône, active l'extension « AppIndicator » (déjà présente sur Ubuntu).</span><span class="en">Lou lives in your desktop's system tray. On GNOME, if you can't see her icon, turn on the AppIndicator extension (Ubuntu already has it).</span></p>
+    </details>
+    <p class="note"><span class="fr">Avec l'AppImage, les mises à jour se font depuis Lou en un clic. Avec le .deb, Lou te prévient et ouvre cette page.</span><span class="en">With the AppImage, Lou updates in one click, right from the app. With the .deb, Lou tells you when a new version is out and opens this page.</span></p>
+  </section>
+  </div>
+
+  <p class="privacy"><span class="fr">🔒 La caméra, la détection et ce que Lou apprend restent sur ton ordinateur. Aucune image n'est enregistrée ni envoyée.<br>Seule la recherche de mises à jour contacte GitHub, sans rien envoyer d'autre.</span><span class="en">🔒 Everything stays on your machine, nothing is sent over the internet. That goes for the camera, the detection and what Lou learns. No image is ever saved.<br>The only time Lou goes online is to check GitHub for updates, and it sends nothing else.</span><br><a href="https://github.com/DjimmyL/lou-releases/releases"><span class="fr">Toutes les versions</a></span><span class="en">All versions</a></span></p>
+  <footer><a href="https://buymeacoffee.com/xsm4xthfki"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Offrir un café à Lou" data-en-alt="Buy Lou a coffee" height="44"></a></footer>
+</main>
+<script>
+  const btn = document.getElementById('copy');
+  const cmd = document.getElementById('cmd').textContent.trim();
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(cmd); }
+    catch (_) {
+      const r = document.createRange(); r.selectNodeContents(document.getElementById('cmd'));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy');
+    }
+    btn.innerHTML = '<span class="fr">Copié ✓</span><span class="en">Copied ✓</span>'; btn.classList.add('ok');
+    setTimeout(() => { btn.innerHTML = '<span class="fr">Copier</span><span class="en">Copy</span>'; btn.classList.remove('ok'); }, 2500);
+  });
+  // Put the visitor's system first and highlight it
+  const plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || navigator.userAgent;
+  const os = /Win/i.test(plat) ? 'win' : /Linux|X11|CrOS/i.test(plat) && !/Android/i.test(navigator.userAgent) ? 'linux' : /Mac/i.test(plat) ? 'mac' : null;
+  if (os) {
+    // the visitor's download button first and in colour, the other two stay available
+    const get = document.getElementById('get');
+    const item = get.querySelector(`.get-item[data-os="${os}"]`);
+    get.classList.add('known');
+    item.classList.add('mine');
+    item.parentNode.prepend(item);
+    const box = document.getElementById('sections');
+    [...box.querySelectorAll(`[data-os="${os}"]`)].reverse().forEach((el) => box.prepend(el));
+  }
+  // Highlight the likely download for this Mac (best effort: Safari/Chrome report Intel on every Mac, so only trust WebGL renderer)
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+    const r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : '';
+    if (/Apple M\d|Apple GPU/i.test(r)) document.getElementById('dl-arm').classList.add('mine');
+    else if (os === 'mac' && /Intel|AMD|Radeon/i.test(r)) {
+      document.getElementById('dl-intel').classList.add('mine');
+      // an Intel Mac: the main Mac button gives the Intel version
+      document.getElementById('get-mac').href = document.getElementById('dl-intel').href;
+      document.getElementById('get-mac-sub').innerHTML = '<span class="fr">processeur Intel</span><span class="en">Intel processor</span>';
+    }
+  } catch (_) {}
+
+  // Language switch: everything visible follows, including the video, the title and the alt texts
+  const META = {
+    fr: { title: document.title, desc: document.querySelector('meta[name="description"]').content },
+    en: { title: 'Lou: stop biting your nails', desc: 'Lou, your gentle companion to help you stop biting your nails. Free, and it runs entirely on your computer.' },
+  };
+  document.querySelectorAll('[data-en-alt]').forEach((el) => { el.dataset.frAlt = el.alt; });
+  document.querySelectorAll('[data-en-aria-label]').forEach((el) => { el.dataset.frAriaLabel = el.getAttribute('aria-label'); });
+  function setLang(lang) {
+    const root = document.documentElement;
+    root.lang = lang;
+    root.classList.toggle('en', lang === 'en');
+    document.title = META[lang].title;
+    document.querySelector('meta[name="description"]').content = META[lang].desc;
+    document.querySelectorAll('[data-en-alt]').forEach((el) => { el.alt = lang === 'en' ? el.dataset.enAlt : el.dataset.frAlt; });
+    document.querySelectorAll('[data-en-aria-label]').forEach((el) => { el.setAttribute('aria-label', lang === 'en' ? el.dataset.enAriaLabel : el.dataset.frAriaLabel); });
+    const v = document.getElementById('promo');
+    const src = lang === 'en' ? v.dataset.enSrc : v.dataset.frSrc;
+    if (v.getAttribute('src') !== src) {
+      v.pause();
+      v.poster = lang === 'en' ? v.dataset.enPoster : v.dataset.frPoster;
+      v.src = src;
+    }
+    document.querySelectorAll('nav.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  }
+  setLang(document.documentElement.lang === 'en' ? 'en' : 'fr');
+  document.querySelectorAll('nav.lang button').forEach((b) => b.addEventListener('click', () => {
+    const lang = b.dataset.lang;
+    try { localStorage.setItem('lou-lang', lang); } catch (_) {}
+    if (/[?&]lang=/.test(location.search)) history.replaceState(null, '', location.pathname + '?lang=' + lang + location.hash);
+    setLang(lang);
+  }));
+</script>
+</body>
+</html>
